@@ -1,5 +1,5 @@
-import logo from "./logo.svg";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./App.css";
 import Main from "./component/Main";
 
@@ -11,6 +11,7 @@ function App() {
       <div className="App">
         <Main />
       </div>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
