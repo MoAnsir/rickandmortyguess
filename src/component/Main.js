@@ -27,6 +27,13 @@ const Main = () => {
 
   const handleInput = (e) => {
     console.log("🚀 ~ file: Main.js:37 ~ Main ~ e.target.value", e.target.value);
+    console.log("🚀 ~ file: Main.js:37 ~ Main ~ e.target.value", word);
+    let index = word.find(e.target.value);
+    if (index > -1) {
+      console.log("We have a match");
+    } else {
+      console.log("NO");
+    }
   };
 
   return (
