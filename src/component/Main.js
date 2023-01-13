@@ -3,13 +3,11 @@
 // 3. check what the user has entered and compare it to the words array. If the user has entered the correct letter then make it visible. If its correct you find a match get the index of that item in the array and match it with the dom element. Then you can change the background color to white by giving it as a class name of visible.
 // 4. Image of character is hidden in a grid. once a correct letter is given a block is shown.
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../App.css";
 import { useQuery } from "@tanstack/react-query";
 
 const Main = () => {
-  const [letter, setLetter] = useState("");
-
   const { isLoading, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () => fetch("https://rickandmortyapi.com/api/character").then((res) => res.json()),
@@ -20,16 +18,16 @@ const Main = () => {
   if (error) return "An error has occurred: " + error.message;
 
   const randomNumber = Math.floor(Math.random() * 20) + 1; // So 20 is the number of result we get back from the api request. its 20 per page.
-  const word = data.results[randomNumber].name.split(""); // This splits everything into an array including the spaces.
+  const word = data && data.results[randomNumber].name.split(""); // This splits everything into an array including the spaces.
 
-  // useEffect(() => {
-  //   setLetter(word);
-  // }, [data]);
+  // console.log("🚀 ~ file: Main.js:31 ~ Main ~ randomNumber", randomNumber);
+  // if (data) {
+  //   console.log("🚀 ~ ", word);
+  // }
 
-  console.log("🚀 ~ file: Main.js:31 ~ Main ~ randomNumber", randomNumber);
-  if (data) {
-    console.log("🚀 ~ ", word);
-  }
+  const handleInput = (e) => {
+    console.log("🚀 ~ file: Main.js:37 ~ Main ~ e.target.value", e.target.value);
+  };
 
   return (
     <div>
@@ -52,10 +50,8 @@ const Main = () => {
             </big>
           ))}
       </div>
-      <label>
-        Enter a letter:
-        <input type="text" />
-      </label>
+      <label>Enter a letter:</label>
+      <input type="text" onChange={(e) => handleInput(e)} />
     </div>
   );
 };
